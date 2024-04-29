@@ -1,6 +1,45 @@
 #include "Particle.h"
 
 
+Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition)
+{
+}
+
+virtual void Particle::draw(RenderTarget& target, RenderStates states) const override
+{
+}
+
+void Particle::update(float dt)
+{
+}
+
+float Particle::getTTL() { return m_ttl; }
+
+
+//Matrix Transformation Functions
+
+///rotate Particle by theta radians counter-clockwise
+///construct a RotationMatrix R, left mulitply it to m_A
+void rotate(double theta)
+{
+}
+
+///Scale the size of the Particle by factor c
+///construct a ScalingMatrix S, left multiply it to m_A
+void scale(double c)
+{
+}
+
+///shift the Particle by (xShift, yShift) coordinates
+///construct a TranslationMatrix T, add it to m_A
+void translate(double xShift, double yShift)
+{
+}
+
+
+
+// Provided Unit Testing Functions
+
 bool Particle::almostEqual(double a, double b, double eps)
 {
 	return fabs(a - b) < eps;
