@@ -16,23 +16,23 @@ void Particle::update(float dt)
 float Particle::getTTL() { return m_ttl; }
 
 
-//Matrix Transformation Functions
+//Matrix Transformation Functions declared as private members of particle class
 
 ///rotate Particle by theta radians counter-clockwise
 ///construct a RotationMatrix R, left mulitply it to m_A
-void rotate(double theta)
+void Particle::rotate(double theta)
 {
 }
 
 ///Scale the size of the Particle by factor c
 ///construct a ScalingMatrix S, left multiply it to m_A
-void scale(double c)
+void Particle::scale(double c)
 {
 }
 
 ///shift the Particle by (xShift, yShift) coordinates
 ///construct a TranslationMatrix T, add it to m_A
-void translate(double xShift, double yShift)
+void Particle::translate(double xShift, double yShift)
 {
 }
 
