@@ -21,13 +21,14 @@ void Engine::input()
             else if (event.type == Event::MouseButtonPressed) 
             {
               if (event.mouseButton.button == sf::Mouse::Left)
-				      {
+	      {      
                 int count = 0;
-                while (count <= 5)
-                  {
-                    Particle();
-                      count++;
-                  }
+		int numPoints = rand(); //check rand formula
+		while (count <= 5)
+                {
+        	  Particle(target, numPoints, mouseclickPosition); //remeber to get target and mouseClickPosition
+                  count++;
+                }	
               }
             }
             else if (Keyboard::isKeyPressed(Keyboard::Escape))
@@ -37,9 +38,30 @@ void Engine::input()
 }
 void Engine::update(float dtAsSeconds)
 {
+	vector<Particles>::iterator iter;
+	for (iter = m_Particles.begin(); iter != m_Particles.end(); iter ++)
+	{
+		if (*iter.getTTL() > 0.0)
+		{
+			*iter.update();
+			iter++
+		}
+		else
+		{
+			*iter.erase();
+			return iter;
+		}
+	}
+		
 }
 void Engine::draw()
 {
+	m_Window.clear();
+	for (int i = 0; i < m_Particles.size(); i++)
+	{
+		m_Window.draw(m_Particle.at(i));
+	}
+	m_Window.display;		
 }
 
 void Engine::run()
