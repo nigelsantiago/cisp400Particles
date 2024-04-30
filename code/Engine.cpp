@@ -4,7 +4,10 @@ using namespace std;
 
 Engine::Engine()
 {
-  m_Window.create(VideoMode::getDesktopMode(), "Particles");
+  unsigned int desktop_w = VideoMode::getDesktopMode().width; 
+  unsigned int desktop_h = VideoMode::getDesktopMode().height;
+  VideoMode vm(desktop_w, desktop_h);
+  m_Window.create(vm, "Particles", Style::Default);
 }
 void Engine::input()
 {
@@ -23,10 +26,10 @@ void Engine::input()
               if (event.mouseButton.button == sf::Mouse::Left)
 	      {      
                 int count = 0;
-		int numPoints = rand(); //check rand formula
+		int numPoints = rand()*(50-25)+25; //check rand formula
 		while (count <= 5)
                 {
-        	  Particle(target, numPoints, mouseclickPosition); //remeber to get target and mouseClickPosition
+        	  p( m_Window, numPoints, { (int)m_Window.getSize().x / 2, (int)m_Window.getSize().y / 2 }); 
                   count++;
                 }	
               }
@@ -61,7 +64,7 @@ void Engine::draw()
 	{
 		m_Window.draw(m_Particle.at(i));
 	}
-	m_Window.display;		
+	m_Window.display();		
 }
 
 void Engine::run()
