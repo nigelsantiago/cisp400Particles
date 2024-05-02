@@ -9,6 +9,7 @@ Engine::Engine()
   VideoMode vm(desktop_w, desktop_h);
   m_Window.create(vm, "Particles", Style::Default);
 }
+
 void Engine::input()
 {
   Particle p;
@@ -29,7 +30,7 @@ void Engine::input()
 		int numPoints = rand()*(50-25)+25; //check rand formula
 		while (count <= 5)
                 {
-        	  p( m_Window, numPoints, { (int)m_Window.getSize().x / 2, (int)m_Window.getSize().y / 2 }); 
+        	  p(m_Window, numPoints, { (int)m_Window.getSize().x / 2, (int)m_Window.getSize().y / 2 }); 
                   count++;
                 }	
               }
@@ -39,24 +40,25 @@ void Engine::input()
                 m_Window.close();
             }
 }
+
 void Engine::update(float dtAsSeconds)
 {
 	vector<Particles>::iterator iter;
-	for (iter = m_Particles.begin(); iter != m_Particles.end(); iter ++)
+	for (iter = m_Particles.begin(); iter != m_Particles.end();)
 	{
-		if (*iter.getTTL() > 0.0)
+		if (m_Particle.at(iter).getTTL() > 0.0)
 		{
-			*iter.update();
-			iter++
+			m_Particles.update(iter);
+			iter++;
 		}
 		else
 		{
-			*iter.erase();
-			return iter;
+			iter = m_Particles.erase(iter);
 		}
 	}
 		
 }
+
 void Engine::draw()
 {
 	m_Window.clear();
@@ -85,7 +87,7 @@ void Engine::run()
     s = t.asSeconds();
     
     input();
-    update();
+    update(s);
     draw();
   }
       
