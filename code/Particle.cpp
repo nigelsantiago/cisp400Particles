@@ -17,11 +17,11 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 	m_vy = rand() % (500 - 100 + 1) + 100; //rand() % 2 == 0 ? (rand() % (500 - 100 + 1) + 100) : -1 * (rand() % (500 - 100 + 1) + 100); // might not want negastive vy
 	m_color1 = {255, 255, 255};
     
-    Uint8 r, g, b;
-    r = rand()%256;
+    Uint8 red, g, b;
+    red = rand()%256;
     g = rand()%255;
     b = rand()%255;
-	m_color2 = {r, g, b}; // just green for now
+	m_color2 = {red, g, b}; // just green for now
 
 	float theta = ((float)rand()/(RAND_MAX)) * (M_PI / 2.0);
 	float dTheta = 2 * M_PI / (numPoints - 1);
