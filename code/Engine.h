@@ -12,7 +12,7 @@ private:
 	RenderWindow m_Window;
 
 	//vector for Particles
-	vector<Particle> m_particles;
+	vector<Particle> m_Particles;
 
 	// Private functions for internal use only
 	void input();

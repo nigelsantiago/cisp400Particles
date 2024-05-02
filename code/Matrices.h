@@ -21,14 +21,14 @@ namespace Matrices
 
             ///Read element at row i, column j
             ///usage:  double x = a(i,j);
-            const double& operator()(int i, int j) const
+            const float& operator()(int i, int j) const
             {
                 return a.at(i).at(j);
             }
 
             ///Assign element at row i, column j
             ///usage:  a(i,j) = x;
-            double& operator()(int i, int j)
+            float& operator()(int i, int j)
             {
                 return a.at(i).at(j);
             }
@@ -38,7 +38,7 @@ namespace Matrices
             ///************************************
         protected:
             ///changed to protected so sublasses can modify
-            vector<vector<double>> a;
+            vector<vector<float>> a;
         private:
             int rows;
             int cols;

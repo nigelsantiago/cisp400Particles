@@ -12,43 +12,43 @@ Engine::Engine()
 
 void Engine::input()
 {
-  Particle p;
-  while (m_Window.isOpen())
-	{
+  //Particle p;
+  //while (m_Window.isOpen())
+	//{
         Event event;
         while (m_Window.pollEvent(event))
-		{
+		    {
             if (event.type == Event::Closed)
+            {
+                m_Window.close();
+            }
+            else if (Keyboard::isKeyPressed(Keyboard::Escape))
             {
                 m_Window.close();
             }
             else if (event.type == Event::MouseButtonPressed) 
             {
               if (event.mouseButton.button == sf::Mouse::Left)
-	      {      
-                int count = 0;
-		int numPoints = rand()*(50-25)+25; //check rand formula
-		while (count <= 5)
+	            {      
+                for(int i = 0; i <= 5; i++)
                 {
-        	  p(m_Window, numPoints, { (int)m_Window.getSize().x / 2, (int)m_Window.getSize().y / 2 }); 
-                  count++;
+		              int numPoints = rand()%(50 - 25 + 1)+25; //check rand formula
+        	        Particle p(m_Window, numPoints, {event.mouseButton.x, event.mouseButton.y}); 
                 }	
               }
             }
-            else if (Keyboard::isKeyPressed(Keyboard::Escape))
-            {
-                m_Window.close();
-            }
+        }
+  //}
 }
 
 void Engine::update(float dtAsSeconds)
 {
-	vector<Particles>::iterator iter;
+	vector<Particle>::iterator iter;
 	for (iter = m_Particles.begin(); iter != m_Particles.end();)
 	{
-		if (m_Particle.at(iter)->getTTL() > 0.0)
+		if (iter->getTTL() > 0.0)
 		{
-			m_Particles.update(iter);
+			iter->update(dtAsSeconds);
 			iter++;
 		}
 		else
@@ -62,9 +62,9 @@ void Engine::update(float dtAsSeconds)
 void Engine::draw()
 {
 	m_Window.clear();
-	for (int i = 0; i < m_Particles.size(); i++)
+	for (size_t i = 0; i < m_Particles.size(); i++)
 	{
-		m_Window.draw(m_Particle.at(i));
+		m_Window.draw(m_Particles.at(i));
 	}
 	m_Window.display();		
 }
@@ -74,7 +74,6 @@ void Engine::run()
   Clock clock;
   Time t;
   float s;
-  Particle p;
   
   cout << "Starting Particle unit tests..." << endl;
   Particle p(m_Window, 4, { (int)m_Window.getSize().x / 2, (int)m_Window.getSize().y / 2 });
@@ -83,7 +82,7 @@ void Engine::run()
 
   while(m_Window.isOpen())
   {
-    t = clock.restart()
+    t = clock.restart();
     s = t.asSeconds();
     
     input();
