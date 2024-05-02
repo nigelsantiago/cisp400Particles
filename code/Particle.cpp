@@ -1,18 +1,64 @@
 #include "Particle.h"
+#include <cstdlib>
+#include<ctime>
+
+srand(time(0));
 
 
-Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition)
-	: m_A(2, numPoints);
+Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition) : m_A(2, numPoints);
 {
+	m_ttl = TTL;
+	m_numPoints = numPoints;
+	m_radiansPerSec = ((float)rand()/(RAND_MAX)) * PI;
+	setCenter(0 , 0);
+	setSize(target.getSize().x, (-1.0) * target.getSize().y);
+	m_centerCoordinate = target.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);
+	m_vx = rand() % 2 == 0 ? (rand() % (500 - 100 + 1) + 100) : -1 * (rand() % (500 - 100 + 1) + 100);
+	m_vy = rand() % 2 == 0 ? (rand() % (500 - 100 + 1) + 100) : -1 * (rand() % (500 - 100 + 1) + 100);
+	m_color1 = {255, 255, 255};
+	m_color2 = {0. 255. 0}; // just green for now
+
+	theta = ((float)rand()/(RAND_MAX)) * (PI * 0.5);
+	dTheta = 2 * PI / (numPoints - 1);
+
+	for (int j = 0; j < numPoints; j++)
+	{
+		float r, dx, dy;
+		r = rand() % (80 - 20 + 1) + 20);
+		dx = r * cos(theta);
+		dy = r * sin(theta);
+		m_A(0, j) = m_centerCoordinate.x + dx;
+		m_A(1, j) = m_centerCoordinate.y + dy;
+		theta += dtheta;
+	}
 	
 }
 
 virtual void Particle::draw(RenderTarget& target, RenderStates states) const override
 {
+	VertexArray lines(TriangleFan, numPoints + 1);
+	Vector2f center = target.mapCoordsToPixel({m_A(0, 0), m_A(1, 0)}, m_cartesianPlane);
+	lines[0].position = center;
+	lines[0].color = m_color;
+
+	for(int j = 1; j <= numPoints; j++)
+	{
+		lines[j].position = target.mapCoordsToPixel({m_A(0, j - 1), m_A(1, j - 1)}, m_cartesianPlane);
+		lines[j].color = m_color2;
+	}
+	target.draw(lines);
 }
 
 void Particle::update(float dt)
 {
+	m_ttl -= dt;
+	rotate(dt*m_radiansPerSec);
+	scale(SCALE);
+	float dx, dy;
+	dx = m_vx * dt;
+	m_vy -= (G*dt);
+	dy = m_vy * dt;
+	translate(dx, dy);
 }
 
 float Particle::getTTL() { return m_ttl; }
