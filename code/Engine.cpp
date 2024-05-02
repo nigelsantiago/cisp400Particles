@@ -46,7 +46,7 @@ void Engine::update(float dtAsSeconds)
 	vector<Particles>::iterator iter;
 	for (iter = m_Particles.begin(); iter != m_Particles.end();)
 	{
-		if (m_Particle.at(iter).getTTL() > 0.0)
+		if (m_Particle.at(iter)->getTTL() > 0.0)
 		{
 			m_Particles.update(iter);
 			iter++;
