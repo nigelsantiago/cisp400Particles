@@ -34,7 +34,7 @@ void Engine::input()
                 {
 		              int numPoints = rand()%(50 - 25 + 1)+25; //check rand formula
         	        Particle p(m_Window, numPoints, {event.mouseButton.x, event.mouseButton.y});
-			// m_Particles.push_back(p);  // try storing the particle in tbe arrag?
+			            m_Particles.push_back(p);  // try storing the particle in tbe arrag?
                 }	
               }
             }

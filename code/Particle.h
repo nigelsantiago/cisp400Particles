@@ -3,10 +3,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/View.hpp>
 
-//#define M_PI 3.1415926535897932384626433
+#define M_PI 3.1415926535897932384626433
 const float G = 1000;      //Gravity
 const float TTL = 5.0;  //Time To Live
-const float SCALE = 0.999;
+const float SCALE = 0.0499;
 
 using namespace Matrices;
 using namespace sf;

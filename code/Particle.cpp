@@ -18,7 +18,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 	m_color1 = {255, 255, 255};
     
     Uint8 r, g, b;
-    r = rand()%255;
+    r = rand()%256;
     g = rand()%255;
     b = rand()%255;
 	m_color2 = {r, g, b}; // just green for now
