@@ -1,9 +1,5 @@
 #include "Particle.h"
 #include <cstdlib>
-#include<ctime>
-
-//srand(time(0));
-
 
 Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition) : m_A(2, numPoints)
 {
@@ -14,14 +10,14 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 	m_cartesianPlane.setSize(target.getSize().x, (-1.0) * target.getSize().y);
 	m_centerCoordinate = target.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);
 	m_vx = rand() % 2 == 0 ? (rand() % (500 - 100 + 1) + 100) : -1 * (rand() % (500 - 100 + 1) + 100);
-	m_vy = rand() % (500 - 100 + 1) + 100; //rand() % 2 == 0 ? (rand() % (500 - 100 + 1) + 100) : -1 * (rand() % (500 - 100 + 1) + 100); // might not want negastive vy
+	m_vy = rand() % (500 - 100) + 100; //rand() % 2 == 0 ? (rand() % (500 - 100 + 1) + 100) : -1 * (rand() % (500 - 100 + 1) + 100); // might not want negastive vy
 	m_color1 = {255, 255, 255};
     
     Uint8 red, g, b;
     red = rand()%256;
-    g = rand()%255;
-    b = rand()%255;
-	m_color2 = {red, g, b}; // just green for now
+    g = rand()%256;
+    b = rand()%256;
+	m_color2 = {red, g, b};
 
 	float theta = ((float)rand()/(RAND_MAX)) * (M_PI / 2.0);
 	float dTheta = 2 * M_PI / (numPoints - 1);
@@ -29,7 +25,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 	for (int j = 0; j < numPoints; j++)
 	{
 		float r, dx, dy;
-		r = rand() % (80 - 20 + 1) + 20;
+		r = rand() % (88 - 38 + 1) + 38;
 		dx = r * cos(theta);
 		dy = r * sin(theta);
 		m_A(0, j) = m_centerCoordinate.x + dx;
